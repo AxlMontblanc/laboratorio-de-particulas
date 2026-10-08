@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://d2wvdje0syli1"]
 
 [ext_resource type="PackedScene" uid="uid://c755lu8ly1625" path="res://recolector/colector.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cjb1p3ojn7sy2" path="res://recolector/quark.tscn" id="2_0xm2m"]
 
 [node name="main" type="Node2D" unique_id=1902878239]
 
 [node name="Collector(Player)" parent="." unique_id=1592289455 instance=ExtResource("1_ig7tw")]
 position = Vector2(562, 627)
+
+[node name="Quark" parent="." unique_id=1573368497 instance=ExtResource("2_0xm2m")]
+position = Vector2(557, 25)
