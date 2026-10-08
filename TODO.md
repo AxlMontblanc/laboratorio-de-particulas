@@ -5,57 +5,91 @@ Plan: 6 días. Construir **un minijuego a la vez y terminarlo** antes de pasar a
 
 ---
 
-## ✅ Hecho (día 1 — 7 oct)
+## 🎯 Diseño del Recolector — nivel 1
 
-### Proyecto
-- [x] Proyecto creado en Godot 4.7, renderer Compatibility (exporta bien a web)
-- [x] Organización por funcionalidad (`recolector/`, luego `reactor/`, `aniquilacion/`, `comun/`)
-- [x] `main.tscn` creada y configurada como escena principal (F5)
-- [x] Repositorio Git creado y subido a GitHub (primer commit)
+- Caen **X partículas** en total (quarks y antiquarks mezclados, al azar).
+- El jugador atrapa partículas con el colector para formar hadrones:
 
-### Recolector de quarks
-- [x] Escena `recolector/colector.tscn` (Area2D + ColorRect + CollisionShape2D, centrados en el origen)
-- [x] Script `colector.gd`: movimiento con flechas (`Input.get_axis`, Δx = v·Δt)
-- [x] `@export var speed` para ajustar desde el Inspector
-- [x] Límites de pantalla con `clamp()`
-- [x] Escena `recolector/quark.tscn` + `quark.gd`: el quark cae
+| Atrapados | Resultado |
+|---|---|
+| 1 quark + 1 antiquark | ✅ Mesón → +1 punto, se vacía el colector |
+| 3 quarks | ✅ Barión → +1 punto, se vacía |
+| 3 antiquarks | ✅ Antibarión → +1 punto, se vacía |
+| 3 mezclados (2q + 1q̄ o 1q + 2q̄) | ❌ Inválido → 0 puntos, se vacía |
+| 2 quarks / 2 antiquarks | ⏳ Sigue atrapando |
+
+- Partícula no atrapada: se pierde, sin castigo.
+- Cuando cae la última partícula → fin del juego y se muestra el puntaje.
+- La regla real es la carga de color; la carga eléctrica entera sale sola (dato educativo para mostrar).
+- La lógica debe funcionar **sin importar el orden** en que se atrapan.
+
+---
+
+## ✅ Hecho
+
+### Día 1 — 7 oct
+- [x] Proyecto Godot 4.7 (Compatibility), organización por carpetas de funcionalidad
+- [x] `main.tscn` como escena principal
+- [x] Repo en GitHub: AxlMontblanc/laboratorio-de-particulas
+- [x] Colector: movimiento con flechas (Δx = v·Δt), `@export speed`, límites con `clamp`
+- [x] Quark que cae
+
+### Día 2 — 8 oct
+- [x] Quark: `Label`, autoeliminación al salir de pantalla (señal `screen_exited` → `queue_free()`)
+- [x] Colector atrapa quarks (señal `area_entered`, elimina `area`)
+- [x] `@export var width` y `clamp` corregido con `width / 2`
+- [x] Quark con `@export var type` como dato; el `Label` muestra el tipo; carga calculada desde el tipo
+- [x] Las 6 generaciones agrupadas por carga (`const pquarks`, `const nquarks`), `charge: float = 0.0`
+- [x] Colector acumula `trapped` y `total_charge` (versión de prueba)
 
 ---
 
 ## 🔜 Siguiente (retomar aquí)
 
-- [ ] **Commit pendiente:** "Quark que cae" (main.tscn + archivos del quark)
-- [ ] Agregar `Label` al quark con "u" o "d" (texto negro, centrado)
-- [ ] Que el quark se elimine al salir de pantalla: nodo `VisibleOnScreenNotifier2D` + señal `screen_exited` → `queue_free()`
-- [ ] Atrapar quarks: conectar la señal `area_entered` del colector
+- [ ] Commit del TODO actualizado
+- [ ] Quark: `@export var anti = false`
+  - [ ] Si `anti`, la carga se invierte
+  - [ ] Distinguirlo visualmente: otro color en `ColorRect` (ej. celeste) y etiqueta "anti-u" o "u̅" (probar si la fuente muestra la barra)
+  - [ ] Probar con un antiquark en `main.tscn`
+- [ ] Colector: reemplazar la lógica de prueba por la tabla de diseño
+  - [ ] Contadores de quarks y antiquarks
+  - [ ] `var score = 0`
+  - [ ] Revisar después de **cada** captura: mesón / barión / antibarión → +1 y reinicio; 3 inválidos → reinicio sin punto
+  - [ ] Reiniciar contadores, lista y carga total al cerrar cada grupo
+  - [ ] Si se compara carga: usar `is_equal_approx`, no `==` ni `in`
+  - [ ] (Opcional) Mensaje con lo formado, ej. "Barión de carga +1"
 
-## Recolector — nivel 1 (meta: formar un protón uud)
+## Recolector — resto del nivel 1
 
-- [ ] Variable de tipo en el quark (`u` / `d`) con su carga (+2/3, −1/3)
-- [ ] Generador que hace aparecer quarks aleatorios desde arriba (Timer + `instantiate()`)
-- [ ] Contador en pantalla: quarks atrapados y carga total
-- [ ] Al atrapar 3: verificar si es protón (uud) → ganar / si no → perder y reiniciar
-- [ ] Pantalla o mensaje de victoria / derrota
-- [ ] (Opcional) Mejora: reemplazar el `60` del clamp por `@export var ancho` y usar `ancho / 2`
-- [ ] (Opcional) Niveles 2 (carga de color) y 3 (mesones)
+- [ ] Generador: X partículas al azar (tipo + anti) desde arriba (Timer + `instantiate()`)
+- [ ] HUD en pantalla: puntaje, partículas atrapadas en el grupo actual, partículas restantes
+- [ ] Fin del juego al caer la última partícula → pantalla de puntaje final y reiniciar
+- [ ] (Opcional) `push_warning()` si llega un tipo desconocido
+- [ ] (Opcional) Tabla de nombres (protón, neutrón, Δ⁺⁺, Δ⁻, π⁺…)
 
 ## Reactor (decaimientos)
 
 - [ ] Datos de partículas compartidos en `comun/` (carga, nº bariónico, nº leptónico)
-- [ ] Pantalla: reacción incompleta (lado izquierdo) + inventario de partículas
-- [ ] Arrastrar y soltar partículas al lado derecho
-- [ ] Verificación de conservación con luces verde/rojo por cantidad
+- [ ] Reacción incompleta (lado izquierdo) + inventario
+- [ ] Arrastrar y soltar al lado derecho
+- [ ] Luces verde/rojo por cada cantidad conservada
 - [ ] 3–4 reacciones reales (ej. n → p + e⁻ + ν̄ₑ)
-- [ ] Progresión: solo carga → + bariónico → + leptónico → (opcional) leptónico por familia
+- [ ] Progresión: carga → + bariónico → + leptónico → (opcional) por familia
 
 ## Aniquilación (si alcanza el tiempo)
 
 - [ ] Reutilizar movimiento y generador del recolector
 - [ ] Disparar la partícula correcta contra su antipartícula
 
+## Arte (con ayuda de Claude, cuando el core básico esté listo)
+
+- [ ] Sprites de quarks/antiquarks y colector
+- [ ] Fondo tipo detector de partículas
+- [ ] Tipografía y estilo del HUD/menú
+- [ ] Efectos simples al formar una partícula (destello, partículas)
+
 ## Cierre
 
 - [ ] Menú principal ("laboratorio") para elegir minijuego
-- [ ] Fondo tipo detector de partículas, pulido visual
 - [ ] Exportar a web y compartir el link
-- [ ] Para GitHub con estudiantes: `README.md`, licencia (MIT), issues "good first issue"
+- [ ] Para estudiantes en GitHub: `README.md`, licencia (MIT), issues "good first issue"
