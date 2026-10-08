@@ -10,3 +10,11 @@ position = Vector2(562, 627)
 
 [node name="Quark" parent="." unique_id=1573368497 instance=ExtResource("2_0xm2m")]
 position = Vector2(557, 25)
+
+[node name="Quark3" parent="." unique_id=1702627881 instance=ExtResource("2_0xm2m")]
+position = Vector2(594, 25)
+type = "z"
+
+[node name="Quark2" parent="." unique_id=291346453 instance=ExtResource("2_0xm2m")]
+position = Vector2(521, 25)
+type = "c"
