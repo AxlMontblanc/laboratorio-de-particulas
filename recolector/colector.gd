@@ -10,6 +10,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var axis = Input.get_axis("ui_left", "ui_right")
 	position.x += speed * delta * axis
-	position.x = clamp(position.x, width, get_viewport_rect().size.x - width)
+	position.x = clamp(position.x, width/2, get_viewport_rect().size.x - (width/2))
 	
 	
+func _on_area_entered(area: Area2D) -> void:
+	print("lo atrape")
+	area.queue_free() # Replace with function body.
