@@ -44,28 +44,28 @@ Plan: 6 días. Construir **un minijuego a la vez y terminarlo** antes de pasar a
 
 ---
 
-## 🔜 Siguiente (retomar aquí)
+### 13 oct — Recolector nivel 1 terminado (con Claude)
+- [x] Antiquarks: `@export var anti`, carga invertida, dibujo propio (círculo = quark, anillo con barra = antiquark), colores por sabor
+- [x] Colector con las reglas de la tabla (mesón / barión / antibarión / inválido), sin importar el orden
+- [x] Nombres de hadrones u/d (protón, neutrón, Δ⁺⁺, Δ⁻, piones y sus antipartículas)
+- [x] El colector avisa con **señales** (`particula_formada`, `combinacion_invalida`, `grupo_cambiado`); `main.gd` decide qué mostrar
+- [x] Generador en `main.gd`: X partículas al azar (`SpawnTimer` + `instantiate()`), velocidad variable
+- [x] HUD: puntaje, partículas por caer, contenido del colector, ayuda con las reglas, mensajes que se desvanecen (tween)
+- [x] Fin de partida y reinicio con Enter
+- [x] Fondo tipo detector (`recolector/fondo.gd`)
 
-- [ ] Commit del TODO actualizado
-- [ ] Quark: `@export var anti = false`
-  - [ ] Si `anti`, la carga se invierte
-  - [ ] Distinguirlo visualmente: otro color en `ColorRect` (ej. celeste) y etiqueta "anti-u" o "u̅" (probar si la fuente muestra la barra)
-  - [ ] Probar con un antiquark en `main.tscn`
-- [ ] Colector: reemplazar la lógica de prueba por la tabla de diseño
-  - [ ] Contadores de quarks y antiquarks
-  - [ ] `var score = 0`
-  - [ ] Revisar después de **cada** captura: mesón / barión / antibarión → +1 y reinicio; 3 inválidos → reinicio sin punto
-  - [ ] Reiniciar contadores, lista y carga total al cerrar cada grupo
-  - [ ] Si se compara carga: usar `is_equal_approx`, no `==` ni `in`
-  - [ ] (Opcional) Mensaje con lo formado, ej. "Barión de carga +1"
+Parámetros ajustables en el Inspector del nodo `Main`: `total_particulas`, `tipos_disponibles`, `prob_anti`, `velocidad_min/max`.
 
-## Recolector — resto del nivel 1
+---
 
-- [ ] Generador: X partículas al azar (tipo + anti) desde arriba (Timer + `instantiate()`)
-- [ ] HUD en pantalla: puntaje, partículas atrapadas en el grupo actual, partículas restantes
-- [ ] Fin del juego al caer la última partícula → pantalla de puntaje final y reiniciar
-- [ ] (Opcional) `push_warning()` si llega un tipo desconocido
-- [ ] (Opcional) Tabla de nombres (protón, neutrón, Δ⁺⁺, Δ⁻, π⁺…)
+## 🔜 Siguiente (ideas para mejorar el Recolector)
+
+- [ ] Commit de los cambios del 13 oct
+- [ ] Probarlo con estudiantes y anotar qué les cuesta
+- [ ] Niveles: agregar sabores (`tipos_disponibles = ["u","d","s"]`) y nombres de kaones (K⁺ = u s̄, K⁻ = s ū…)
+- [ ] Nivel con carga de color (rojo/verde/azul)
+- [ ] Sonidos al formar / fallar
+- [ ] Pantalla de inicio con instrucciones
 
 ## Reactor (decaimientos)
 
@@ -81,10 +81,10 @@ Plan: 6 días. Construir **un minijuego a la vez y terminarlo** antes de pasar a
 - [ ] Reutilizar movimiento y generador del recolector
 - [ ] Disparar la partícula correcta contra su antipartícula
 
-## Arte (con ayuda de Claude, cuando el core básico esté listo)
+## Arte
 
-- [ ] Sprites de quarks/antiquarks y colector
-- [ ] Fondo tipo detector de partículas
+- [x] Quarks/antiquarks dibujados por código y fondo tipo detector (arte básico)
+- [ ] Colector con mejor forma (ahora es un rectángulo)
 - [ ] Tipografía y estilo del HUD/menú
 - [ ] Efectos simples al formar una partícula (destello, partículas)
 

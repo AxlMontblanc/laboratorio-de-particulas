@@ -2,21 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dcf3hbsffvnia" path="res://recolector/quark.gd" id="1_ghhl3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
-size = Vector2(30, 30)
+[sub_resource type="CircleShape2D" id="CircleShape2D_quark"]
+radius = 15.0
 
 [node name="Quark" type="Area2D" unique_id=1573368497]
 script = ExtResource("1_ghhl3")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=127075141]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
-color = Color(1, 1, 0, 1)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1697326820]
-shape = SubResource("RectangleShape2D_bhunq")
+shape = SubResource("CircleShape2D_quark")
 
 [node name="Label" type="Label" parent="." unique_id=423134328]
 offset_left = -15.0

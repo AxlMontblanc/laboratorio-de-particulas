@@ -1,19 +1,84 @@
 [gd_scene format=3 uid="uid://d2wvdje0syli1"]
 
-[ext_resource type="PackedScene" uid="uid://c755lu8ly1625" path="res://recolector/colector.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://cjb1p3ojn7sy2" path="res://recolector/quark.tscn" id="2_0xm2m"]
+[ext_resource type="Script" path="res://main.gd" id="1_main"]
+[ext_resource type="Script" path="res://recolector/fondo.gd" id="2_fondo"]
+[ext_resource type="PackedScene" uid="uid://c755lu8ly1625" path="res://recolector/colector.tscn" id="3_colector"]
 
-[node name="main" type="Node2D" unique_id=1902878239]
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
 
-[node name="Collector(Player)" parent="." unique_id=1592289455 instance=ExtResource("1_ig7tw")]
-position = Vector2(562, 627)
+[node name="Fondo" type="Node2D" parent="."]
+script = ExtResource("2_fondo")
 
-[node name="Quark" parent="." unique_id=1573368497 instance=ExtResource("2_0xm2m")]
-position = Vector2(557, 25)
+[node name="Colector" parent="." instance=ExtResource("3_colector")]
+position = Vector2(576, 610)
 
-[node name="Quark3" parent="." unique_id=1702627881 instance=ExtResource("2_0xm2m")]
-position = Vector2(596, 134)
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 1.2
 
-[node name="Quark2" parent="." unique_id=291346453 instance=ExtResource("2_0xm2m")]
-position = Vector2(521, 90)
-type = "d"
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Puntaje" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "Partículas formadas: 0"
+
+[node name="Restantes" type="Label" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "Por caer: 0"
+horizontal_alignment = 2
+
+[node name="Grupo" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 54.0
+offset_right = 520.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Colector: vacío"
+
+[node name="Ayuda" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 92.0
+offset_right = 350.0
+offset_bottom = 118.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.55)
+theme_override_font_sizes/font_size = 16
+text = "Mesón = quark + antiquark   ·   Barión = 3 quarks   ·   Antibarión = 3 antiquarks"
+horizontal_alignment = 1
+
+[node name="Mensaje" type="Label" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Final" type="Label" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "¡Fin!"
+horizontal_alignment = 1
+vertical_alignment = 1

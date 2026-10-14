@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(120, 20.25)
 
-[node name="Collector(Player)" type="Area2D" unique_id=1592289455]
+[node name="Colector" type="Area2D" unique_id=1592289455]
 script = ExtResource("1_hd16w")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=18527985]
@@ -13,7 +13,7 @@ offset_left = -60.0
 offset_top = -10.0
 offset_right = 60.0
 offset_bottom = 10.0
-color = Color(1, 0, 0, 1)
+color = Color(0.3, 0.9, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2095015332]
 shape = SubResource("RectangleShape2D_bhunq")
